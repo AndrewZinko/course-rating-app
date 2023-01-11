@@ -1,0 +1,13 @@
+.star {
+	width: auto;
+	padding-right: 5px;
+}
+
+.filled {
+	fill: var(--primary);
+}
+
+.editable {
+	cursor: pointer;
+	transition: all 0.3s;
+}

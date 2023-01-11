@@ -1,0 +1,24 @@
+.paragraph {
+	font-family: var(--font-family);
+	font-style: normal;
+	font-weight: 400;
+	color: var(--black);
+}
+
+.small {
+	font-size: 14px;
+}
+
+.medium {
+	font-size: 16px;
+}
+
+.small,
+.medium {
+	line-height: 24px;
+}
+
+.large {
+	font-size: 18px;
+	line-height: 29px;
+}
