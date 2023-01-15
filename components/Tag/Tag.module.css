@@ -1,5 +1,6 @@
 .tag {
 	display: inline-block;
+	margin-right: 5px;
 	border-radius: 20px;
 }
 

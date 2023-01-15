@@ -27,13 +27,13 @@ export interface CourseModel {
     alias: string;
     title: string;
     category: string;
-    seoText: string;
+    seoText?: string;
     tagsTitle: string;
     metatitle: string;
     metaDescription: string;
     firstCategory: PageLevelCategory;
-    advantage: CourseAdvantage[];
+    advantages?: CourseAdvantage[];
     createdAt: Date;
     updatedAt: Date;
-    hh: HHData;
+    hh?: HHData;
 }

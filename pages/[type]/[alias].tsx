@@ -6,12 +6,15 @@ import { CourseModel, PageLevelCategory } from "../../interfaces/course.interfac
 import { ParsedUrlQuery } from "querystring";
 import { ProductModel } from "../../interfaces/product.interface";
 import { firstLevelMenu } from "../../helpers/helpers";
+import { CoursePageComponent } from "../../page-components";
+import { Convert } from "easy-currencies";
 
-function Course({menu, page, products}: CourseProps): JSX.Element {
-    return (
-        <>    
-        </>
-    );
+function Course({currentCategory, page, products}: CourseProps): JSX.Element {
+    return <CoursePageComponent 
+                page={page} 
+                products={products} 
+                currentCategory={currentCategory}
+            />;
 }
 
 export default withLayout(Course);

@@ -1,0 +1,23 @@
+.advantage {
+	display: grid;
+	grid-template-columns: 50px 1fr;
+	gap: 10px 40px;
+	margin-bottom: 30px;
+}
+
+.title {
+	align-self: center;
+}
+
+.vlineWrapper {
+	display: flex;
+	justify-content: center;
+}
+
+.vline {
+	width: 1px;
+	border-top: none;
+	border-right: none;
+	border-bottom: none;
+	border-left: 1px solid var(--gray-light);
+}
