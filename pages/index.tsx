@@ -1,29 +1,15 @@
 import { GetStaticProps } from "next";
 import { useState } from "react";
-import {Heading, Button, Paragraph, Tag, Rating} from "../components";
 import {withLayout} from "../layout/Layout";
 import axios from 'axios';
 import { MenuItem } from "../interfaces/menu.interface";
+import { API } from "../helpers/api";
 
 function Home({menu, currentCategory}: HomeProps): JSX.Element {
     const [rating, setRating] = useState<number>(4);
 
     return (
-        <>    
-            <Heading tag="h1">some content</Heading>
-            <Button color="primary">Buy</Button>
-            <Button color="neutral" arrow="right">More information</Button>
-            <Paragraph fontSize="small">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Expedita, quaerat deleniti et fuga facilis eum exercitationem aliquam quidem blanditiis, totam consectetur neque distinctio quia numquam officia, quam iste nostrum quae.</Paragraph>
-            <Paragraph fontSize="medium">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eum labore, perferendis eius quas recusandae ratione ab non sint qui, nesciunt libero. Excepturi, harum officiis. Libero perferendis labore sit minima eligendi.</Paragraph>
-            <Paragraph fontSize="large">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae similique numquam consequatur cum eos eius dolorum error fugit alias, rem ex tempore tenetur eaque laborum id aut sit veniam cumque!</Paragraph>
-            <Paragraph fontSize="large">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae similique numquam consequatur cum eos eius dolorum error fugit alias, rem ex tempore tenetur eaque laborum id aut sit veniam cumque!</Paragraph>
-            <Tag size="small" color="danger">Info</Tag>
-            <Tag size="medium" color="neutral">Info</Tag>
-            <Tag size="small" color="neutral-outlined">Info</Tag>
-            <Tag size="medium" color="primary-outlined">Info</Tag>
-            <Tag size="small" color="success">Info</Tag>
-            <Rating rating={rating} isEditable={true} setRating={setRating}/>
-        </>
+        <></>
     );
 }
 
@@ -31,7 +17,7 @@ export default withLayout(Home);
 
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
     const defaultCategory = 0;
-    const { data: menu } = await axios.post<MenuItem[]>(process.env.NEXT_PUBLIC_DOMAIN + '/api/top-page/find', {
+    const { data: menu } = await axios.post<MenuItem[]>(API.topPage.find, {
         firstCategory: defaultCategory
     });
 

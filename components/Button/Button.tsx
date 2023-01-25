@@ -1,6 +1,7 @@
 import { ButtonProps } from './Button.props';
 import styles from './Button.module.css';
 import classnames from 'classnames';
+import { motion } from 'framer-motion';
 
 import ArrowIcon from './arrow.svg';
 
@@ -22,7 +23,8 @@ const Button = ({arrow = 'none', color, children, className, ...props}: ButtonPr
     };
 
     return (
-        <button 
+        <motion.button
+                whileHover={{ scale: 1.05 }}
                 className={classnames(styles.button, className, {
                     [styles.primary]: color === 'primary',
                     [styles.neutral]: color === 'neutral'
@@ -31,7 +33,7 @@ const Button = ({arrow = 'none', color, children, className, ...props}: ButtonPr
             >
             {children}
             {renderArrow()}
-        </button>
+        </motion.button>
     );
 };
 

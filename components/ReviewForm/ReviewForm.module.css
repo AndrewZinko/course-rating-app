@@ -1,0 +1,90 @@
+.reviewForm {
+	display: grid;
+	grid-template-columns: [start] auto 1fr auto [end];
+	gap: 20px 30px;
+	align-items: center;
+	font-size: 14px;
+	line-height: 24px;
+}
+
+.description,
+.submit {
+	grid-column: start / end;
+}
+
+.title {
+	justify-self: left;
+}
+
+.submit {
+	display: flex;
+	flex-wrap: wrap;
+	column-gap: 15px;
+	align-items: center;
+}
+
+.rating {
+	display: flex;
+	flex-wrap: wrap;
+	column-gap: 20px;
+}
+
+.panel {
+	position: relative;
+	padding: 20px;
+	margin-top: 20px;
+	border-radius: 5px;
+}
+
+.success {
+	background: var(--green-light);
+}
+
+.error {
+	background: var(--red-light);
+}
+
+.successTitle {
+	font-size: 16px;
+}
+
+.close {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	cursor: pointer;
+	background: none;
+	border: none;
+}
+
+.error .close path {
+	stroke: var(--red);
+}
+
+@media screen and (max-width: 1100px) {
+	.reviewForm {
+		grid-template-columns: [start] 1fr 1fr [end];
+	}
+
+	.title {
+		justify-self: normal;
+	}
+
+	.rating {
+		grid-column: start / end;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.reviewForm {
+		grid-template-columns: [start] 1fr [end];
+	}
+
+	.title {
+		justify-self: normal;
+	}
+
+	.rating {
+		grid-column: start / end;
+	}
+}

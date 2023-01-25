@@ -4,6 +4,7 @@
 	gap: 20px;
 	align-items: center;
 	justify-items: left;
+	margin-bottom: 20px;
 }
 
 .vacancyTitle {
@@ -21,7 +22,8 @@
 	line-height: 29px;
 }
 
-.seo ul {
+.seo ul,
+.seo ol {
 	margin-top: 15px;
 	margin-left: 30px;
 }
@@ -52,4 +54,10 @@
 	font-size: 20px;
 	font-weight: 600;
 	line-height: 27px;
+}
+
+@media screen and (max-width: 640px) {
+	.title {
+		grid-template-columns: auto 1fr;
+	}
 }

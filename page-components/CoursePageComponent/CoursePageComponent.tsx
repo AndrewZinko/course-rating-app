@@ -1,26 +1,31 @@
-import React, { useReducer } from 'react';
-import { Advantages, Heading, Sort, Tag, VacanciesData } from '../../components';
+import { useEffect, useReducer } from 'react';
+import { Advantages, Heading, Product, Sort, Tag, VacanciesData } from '../../components';
 import { CoursePageComponentProps } from './CoursePageComponent.props';
-
-import styles from './CoursePageComponent.module.css';
 import { PageLevelCategory } from '../../interfaces/course.interface';
 import { SortEnum } from '../../components/Sort/Sort.props';
 import { sortReducer } from '../../reducers';
+import { wordInflection } from '../../helpers/helpers';
+import { useReducedMotion } from 'framer-motion';
+
+import styles from './CoursePageComponent.module.css';
 
 const CoursePageComponent = ({ currentCategory, page, products }: CoursePageComponentProps): JSX.Element => {
     const [{sort, sortedProducts}, dispatch] = useReducer(sortReducer, {sort: SortEnum.Rating, sortedProducts: products});
+    const shouldReduceMotion = useReducedMotion();
 
     const setSort = (sort: SortEnum) => {
         dispatch({type: sort});
     };
 
+    useEffect(() => {
+        dispatch({ type: 'reset', payload: products });
+    }, [products]);
+
     const renderProducts = (): JSX.Element[] | null => {
         if (sortedProducts) {
             return sortedProducts.map(productItem => {
                 return (
-                    <div key={productItem._id}>
-                        {productItem.title}
-                    </div>
+                    <Product role="listitem" layout={shouldReduceMotion ? false : true} key={productItem._id} product={productItem}/>
                 );
             });
         }
@@ -51,12 +56,19 @@ const CoursePageComponent = ({ currentCategory, page, products }: CoursePageComp
         <div className={styles.wrapper}>
             <div className={styles.title}>
                 <Heading tag='h1'>{page.title}</Heading>
-                <Tag color='neutral' size='medium'>{products.length}</Tag>
+
+                <Tag 
+                    color='neutral' 
+                    size='medium'
+                    aria-label={`${products.length} ${wordInflection(products.length, ['доступный курс', 'доступных курса', 'доступных курсов'])}`}
+                >
+                    {products.length}
+                </Tag>
 
                 <Sort sort={sort} setSort={setSort}/>
             </div>
 
-            <div>
+            <div role="list">
                 {renderProducts()}
             </div>
 

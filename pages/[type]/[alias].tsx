@@ -7,14 +7,27 @@ import { ParsedUrlQuery } from "querystring";
 import { ProductModel } from "../../interfaces/product.interface";
 import { firstLevelMenu } from "../../helpers/helpers";
 import { CoursePageComponent } from "../../page-components";
-import { Convert } from "easy-currencies";
+import { API } from "../../helpers/api";
+import Head from "next/head";
 
 function Course({currentCategory, page, products}: CourseProps): JSX.Element {
-    return <CoursePageComponent 
+    return (
+        <>
+            <Head>
+                <title>{page.metatitle}</title>
+                <meta name="description" content={page.metaDescription}/>
+                <meta property="og:title" content={page.metatitle}/>
+                <meta property="og:description" content={page.metaDescription}/>
+                <meta property="og:type" content="article"/>
+            </Head>
+
+            <CoursePageComponent 
                 page={page} 
                 products={products} 
                 currentCategory={currentCategory}
-            />;
+            />
+        </>
+    );
 }
 
 export default withLayout(Course);
@@ -23,7 +36,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     let paths: string[] = [];
 
     for (const menuItem of firstLevelMenu) {
-        const { data: menu } = await axios.post<MenuItem[]>(process.env.NEXT_PUBLIC_DOMAIN + '/api/top-page/find', {
+        const { data: menu } = await axios.post<MenuItem[]>(API.topPage.find, {
             firstCategory: menuItem.id
         });
 
@@ -52,7 +65,7 @@ export const getStaticProps: GetStaticProps<CourseProps> = async ({params}: GetS
     }
     
     try {
-        const { data: menu } = await axios.post<MenuItem[]>(process.env.NEXT_PUBLIC_DOMAIN + '/api/top-page/find', {
+        const { data: menu } = await axios.post<MenuItem[]>(API.topPage.find, {
             firstCategory: currentCategoryItem.id
         });
 
@@ -62,8 +75,8 @@ export const getStaticProps: GetStaticProps<CourseProps> = async ({params}: GetS
             };
         }
 
-        const {data: page} = await axios.get<CourseModel>(process.env.NEXT_PUBLIC_DOMAIN + '/api/top-page/byAlias/' + params.alias);
-        const {data: products } = await axios.post<ProductModel[]>(process.env.NEXT_PUBLIC_DOMAIN + '/api/product/find', {
+        const {data: page} = await axios.get<CourseModel>(API.topPage.byAlias + params.alias);
+        const {data: products } = await axios.post<ProductModel[]>(API.product.find, {
             category: page.category,
             limit: 10
         });
