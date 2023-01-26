@@ -89,6 +89,12 @@ const Rating = forwardRef(({isEditable = false, tabIndex, error, rating, setRati
                         [styles.editable]: isEditable
                     })}
                     ref={ref => ratingArrayRef.current?.push(ref)}
+                    role={isEditable ? "slider" : ""}
+                    aria-valuenow={rating}
+                    aria-valuemax={5}
+                    aria-valuemin={1}
+                    aria-label={isEditable ? 'Укажите рейтинг' : `рейтинг ${rating}`}
+                    aria-invalid={error ? true : false}
                 >
                     <StarIcon/>
                 </span>
@@ -104,12 +110,6 @@ const Rating = forwardRef(({isEditable = false, tabIndex, error, rating, setRati
             className={classnames(className, styles.ratingWrapper, {
                 [styles.error]: error
             })}
-            role={isEditable ? "slider" : ""}
-            aria-valuenow={rating}
-            aria-valuemax={5}
-            aria-valuemin={1}
-            aria-label={isEditable ? 'Укажите рейтинг' : `рейтинг ${rating}`}
-            aria-invalid={error ? true : false}
             {...props}
         >
             {ratingArray.map((star, index) => <span key={index}>{star}</span>)}

@@ -1,31 +1,44 @@
+import axios from 'axios';
+import Head from "next/head";
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from "next";
 import { withLayout } from "../../layout/Layout";
-import { MenuItem } from "../../interfaces/menu.interface";
-import axios from 'axios';
-import { CourseModel, PageLevelCategory } from "../../interfaces/course.interface";
 import { ParsedUrlQuery } from "querystring";
-import { ProductModel } from "../../interfaces/product.interface";
 import { firstLevelMenu } from "../../helpers/helpers";
 import { CoursePageComponent } from "../../page-components";
 import { API } from "../../helpers/api";
-import Head from "next/head";
+import { Error404 } from "../404";
+import { CourseModel, PageLevelCategory } from "../../interfaces/course.interface";
+import { ProductModel } from "../../interfaces/product.interface";
+import { MenuItem } from "../../interfaces/menu.interface";
 
 function Course({currentCategory, page, products}: CourseProps): JSX.Element {
+    const renderPage = () => {
+        if (page && products) {
+            return (
+                <>
+                    <Head>
+                        <title>{page.metaTitle}</title>
+                        <meta name="description" content={page.metaDescription}/>
+                        <meta property="og:title" content={page.metaTitle}/>
+                        <meta property="og:description" content={page.metaDescription}/>
+                        <meta property="og:type" content="article"/>
+                    </Head>
+        
+                    <CoursePageComponent 
+                        page={page} 
+                        products={products} 
+                        currentCategory={currentCategory}
+                    />
+                </> 
+            );
+        }
+
+        return <Error404/>;
+    };
+
     return (
         <>
-            <Head>
-                <title>{page.metatitle}</title>
-                <meta name="description" content={page.metaDescription}/>
-                <meta property="og:title" content={page.metatitle}/>
-                <meta property="og:description" content={page.metaDescription}/>
-                <meta property="og:type" content="article"/>
-            </Head>
-
-            <CoursePageComponent 
-                page={page} 
-                products={products} 
-                currentCategory={currentCategory}
-            />
+            {renderPage()}
         </>
     );
 }

@@ -29,7 +29,7 @@ export interface CourseModel {
     category: string;
     seoText?: string;
     tagsTitle: string;
-    metatitle: string;
+    metaTitle: string;
     metaDescription: string;
     firstCategory: PageLevelCategory;
     advantages?: CourseAdvantage[];
